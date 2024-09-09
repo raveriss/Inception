@@ -57,19 +57,21 @@ Pour compiler et démarrer l'infrastructure, utilisez la commande suivante dans 
 make
 ```
 
-Cette commande lance docker-compose et met en place tous les services.
+Cette commande lance `docker-compose` et met en place tous les services.
 
 ### Exécution
 Une fois la compilation terminée, vous pouvez accéder aux services via votre navigateur :
 
-Accédez à votre site WordPress sécurisé via HTTPS à l'adresse https://login.42.fr, où login est votre login utilisateur de l'École 42.
-Fonctionnalités
-Conteneurisation des services : NGINX, WordPress, et MariaDB tournent chacun dans leur propre conteneur.
-Sécurisation : Utilisation du protocole TLSv1.2 ou TLSv1.3 pour sécuriser les connexions via NGINX.
-Volumes : Les données sont persistantes grâce à l'utilisation de volumes Docker pour la base de données et les fichiers de WordPress.
-Automatisation : Utilisation d'un Makefile pour automatiser la configuration et le déploiement.
-Variables d'environnement : Configuration des mots de passe et autres informations sensibles via des variables d'environnement sécurisées dans un fichier .env.
-Contributeurs
+Accédez à votre site WordPress sécurisé via HTTPS à l'adresse `https://login.42.fr`, où login est votre `login` utilisateur de l'École 42.
+
+### Fonctionnalités
+- **Conteneurisation des services** : NGINX, WordPress, et MariaDB tournent chacun dans leur propre conteneur.
+- **Sécurisation** : Utilisation du protocole TLSv1.2 ou TLSv1.3 pour sécuriser les connexions via NGINX.
+- **Volumes** : Les données sont persistantes grâce à l'utilisation de volumes Docker pour la base de données et les fichiers de WordPress.
+- **Automatisation** : Utilisation d'un Makefile pour automatiser la configuration et le déploiement.
+- **Variables d'environnement** : Configuration des mots de passe et autres informations sensibles via des variables d'environnement sécurisées dans un fichier `.env`.
+
+### Contributeurs
 raveriss - Développeur principal
 
 ### Remarques
