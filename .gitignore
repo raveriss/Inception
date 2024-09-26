@@ -1,0 +1,74 @@
+# === Fichiers de log et temporaires ===
+# Fichiers de log générés automatiquement pendant l'exécution de l'application.
+*.log
+
+# Fichiers temporaires créés lors de l'édition ou des sauvegardes.
+*.tmp
+*.bak
+
+# Ignorer les dumps mémoire en cas de plantage d'une application.
+core
+
+# === Fichiers sensibles ===
+# Le fichier .env contient des variables d'environnement sensibles comme les mots de passe et clés d'API.
+.env
+
+# Ignorer tous les fichiers du dossier "secrets" qui peuvent contenir des informations critiques (mots de passe, certificats).
+secrets/*
+# On garde un fichier .gitkeep pour s'assurer que le dossier "secrets" existe dans le dépôt, sans exposer son contenu.
+!secrets/.gitkeep
+
+# === Fichiers spécifiques à Docker ===
+# Fichiers de configuration Docker spécifiques à l'environnement local de développement, 
+# qui ne doivent pas être commités dans un environnement de production.
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Ignorer le cache Docker et autres fichiers temporaires.
+**/.dockerignore
+.docker
+
+# === Dépendances ===
+# Le dossier node_modules contient les dépendances de Node.js, souvent volumineuses et spécifiques à l'environnement local.
+node_modules/
+
+# Le dossier vendor contient les dépendances installées par Composer pour les projets PHP.
+vendor/
+
+# === Dossiers de build ===
+# Les fichiers de build générés automatiquement par vos outils de compilation ou de transpilations (Webpack, etc.).
+build/
+dist/
+
+# === Environnements virtuels ===
+# Le dossier venv contient les environnements virtuels Python. Il est propre à la machine locale et ne doit pas être versionné.
+venv/
+__pycache__/
+
+# === Fichiers spécifiques aux systèmes d'exploitation ===
+# Les fichiers spécifiques à macOS (.DS_Store) et Windows (Thumbs.db) doivent être ignorés car inutiles et propres à l'OS local.
+.DS_Store
+Thumbs.db
+
+# === Configuration des éditeurs et IDE ===
+# Ces dossiers contiennent des configurations spécifiques à Visual Studio Code (.vscode) et à JetBrains (.idea).
+# Ils ne doivent pas être partagés car ils sont spécifiques à la configuration de chaque développeur.
+.vscode/
+.idea/
+
+# === Certificats SSL et clés privées ===
+# Ignorer les certificats SSL auto-signés et les clés privées qui ne doivent jamais être exposés publiquement.
+ssl/
+certs/
+*.key
+*.crt
+
+# === Volumes Docker pour les données persistantes ===
+# Les volumes Docker montés localement pour MariaDB et WordPress. Ces données sont critiques mais ne doivent pas être suivies dans Git.
+/home/raveriss/data/wordpress
+/home/raveriss/data/mariadb
+
+# === Fichiers de sauvegarde et d'édition ===
+# Fichiers créés par les éditeurs de texte (Vim, Emacs, etc.) pendant l'édition. Ils sont temporaires et ne doivent pas être versionnés.
+*.swp
+*~

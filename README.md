@@ -1,5 +1,13 @@
 # Inception - École 42 | Paris
 
+![Docker](https://img.shields.io/badge/container-Docker-blue)
+![Docker Compose](https://img.shields.io/badge/docker%20compose-yes-blue)
+![MariaDB](https://img.shields.io/badge/database-MariaDB-blue)
+![Nginx](https://img.shields.io/badge/web%20server-Nginx-green)
+![WordPress](https://img.shields.io/badge/cms-WordPress-blueviolet)
+![42](https://img.shields.io/badge/school-42-green)
+![42 Paris](https://img.shields.io/badge/42-Paris-blue)
+
 ## Description
 
 Inception est un projet qui vise à approfondir les connaissances dans la virtualisation en utilisant Docker. L'objectif est de créer une mini-infrastructure de plusieurs services, tous conteneurisés et orchestrés à l'aide de `docker-compose`. Chaque service tournera dans son propre conteneur dédié en respectant les bonnes pratiques de configuration.
