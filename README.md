@@ -1,12 +1,14 @@
 # Inception - École 42 | Paris
 
-![Docker](https://img.shields.io/badge/container-Docker-blue)
-![Docker Compose](https://img.shields.io/badge/docker%20compose-yes-blue)
-![MariaDB](https://img.shields.io/badge/database-MariaDB-blue)
-![Nginx](https://img.shields.io/badge/web%20server-Nginx-green)
-![WordPress](https://img.shields.io/badge/cms-WordPress-blueviolet)
-![42](https://img.shields.io/badge/school-42-green)
-![42 Paris](https://img.shields.io/badge/42-Paris-blue)
+<div align="center">
+  <img src="https://img.shields.io/badge/container-Docker-blue" alt="Docker">
+  <img src="https://img.shields.io/badge/docker%20compose-yes-blue" alt="Docker Compose">
+  <img src="https://img.shields.io/badge/database-MariaDB-blue" alt="MariaDB">
+  <img src="https://img.shields.io/badge/web%20server-Nginx-green" alt="Nginx">
+  <img src="https://img.shields.io/badge/cms-WordPress-blueviolet" alt="WordPress">
+  <img src="https://img.shields.io/badge/school-42-green" alt="42">
+  <img src="https://img.shields.io/badge/42-Paris-blue" alt="42 Paris">
+</div>
 
 ## Description
 
