@@ -1,134 +1,100 @@
 services:
   mariadb:
-    #image: mariadb
-    # Le nom du conteneur MariaDB dans Docker. Utilisé pour identifier le conteneur lors des interactions.
-    container_name: mariadb
-
-    # Ce service appartient au réseau Docker appelé "inception". 
-    # Cela permet à d'autres services de communiquer avec MariaDB via ce réseau.
+    # Nom du conteneur MariaDB
+    container_name: mariadb 
+    # Réseau auquel le conteneur appartient
     networks:
       - inception
-
-    # Utilise un Dockerfile personnalisé pour construire l'image de MariaDB à partir du répertoire ./requirements/mariadb.
+    # Chemin du Dockerfile pour construire l'image
     build: 
       context: ./requirements/mariadb
-
-    # Spécifie le fichier .env à utiliser pour injecter les variables d'environnement. 
-    # Utile pour centraliser les configurations comme les noms de bases de données, utilisateurs, mots de passe, etc.
+    # Fichier contenant les variables d'environnement
     env_file:
       - .env
-    
-    # Monte un volume Docker pour persister les données de MariaDB. 
-    # Sans cela, les données seraient perdues à chaque redémarrage du conteneur.      
-    volumes:
+    # Volumes pour persister les données de la base de données
+    volumes: 
       - mariadb:/var/lib/mysql
-
-    # Garantit que le conteneur redémarre automatiquement sauf si on l'arrête manuellement.
+    # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
-
-    # Expose le port 3306, qui est le port par défaut pour MariaDB. 
-    # Cela permet aux autres conteneurs et services de se connecter à la base de données via ce port.
-    expose:
+    # Exposer le port 3306 pour MariaDB
+    expose: 
       - "3306:3306"
 
   nginx:
-    #image: nginx
-
-    # Le nom du conteneur NGINX, utilisé pour l'identifier.
+    # Nom du conteneur NGINX
     container_name: nginx
-
-    # NGINX appartient également au réseau "inception", permettant à NGINX de communiquer avec les autres services, 
-    # tels que WordPress et MariaDB.
+    # Réseau auquel le conteneur appartient
     networks:
       - inception
-
-    # Ce champ assure que NGINX ne démarre qu'après que WordPress soit opérationnel, 
-    # car NGINX dépend de WordPress pour servir les fichiers web.
-    depends_on:
+    # Indiquer que NGINX dépend de WordPress (ne démarre pas tant que WordPress n'est pas opérationnel)
+    depends_on: 
       - wordpress
-
-    # Redémarre automatiquement le conteneur NGINX en cas de problème, sauf si on l'arrête explicitement.
+    # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
-
-    # Définit le contexte de construction du Dockerfile pour NGINX à partir du dossier ./requirements/nginx.    
+    # Chemin du Dockerfile pour construire l'image
     build:
       context: requirements/nginx
-
-    # Utilise le fichier .env pour injecter les variables d'environnement comme le nom de domaine ou autres configurations.      
+    # Fichier contenant les variables d'environnement
     env_file:
       - .env
-
-    # Le port 443 est exposé pour servir les requêtes HTTPS avec TLS. 
-    # Cela permet au conteneur d'être accessible via HTTPS depuis l'extérieur.
+    # Mapper le port 443 du conteneur sur le port 443 de la machine locale
     ports:
       - "443:443"
-
-    # Monte un volume pour WordPress, ce qui permet à NGINX de servir les fichiers WordPress. 
-    # Cela garantit que les fichiers WordPress sont accessibles par NGINX.
+    # Monter le volume pour stocker les fichiers WordPress
     volumes:
       - wordpress:/var/www/html/wordpress
 
   wordpress:
-    #image: wordpress
-
-    # Le nom du conteneur WordPress, utilisé pour le gestionnaire de contenu.
+    # Nom du conteneur WordPress
     container_name: wordpress
-
-    # WordPress est également connecté au réseau "inception" pour interagir avec les autres services.
+    # Réseau auquel le conteneur appartient
     networks:
       - inception
-
-    # WordPress ne démarre qu'après que MariaDB soit opérationnel, 
-    # car il dépend de la base de données pour s'installer et fonctionner correctement.
+    # Indiquer que WordPress dépend de MariaDB (ne démarre pas tant que MariaDB n'est pas opérationnel)
     depends_on: 
       - mariadb
-
-    # Assure que WordPress redémarre automatiquement s'il plante ou en cas de problème.
+    # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
-
-    # Utilise le Dockerfile du dossier ./requirements/wordpress pour construire l'image de WordPress.
+    # Chemin du Dockerfile pour construire l'image
     build:
       context: ./requirements/wordpress
-
-    # Le fichier .env est utilisé pour injecter les variables nécessaires comme le nom de la base de données, 
-    # l'utilisateur administrateur, et d'autres configurations spécifiques à WordPress.
+    # Fichier contenant les variables d'environnement
     env_file:
       - .env
-
-    # Monte un volume Docker pour persister les fichiers WordPress (thèmes, plugins, etc.). 
-    # Cela permet de conserver les données même après un redémarrage ou une mise à jour du conteneur.
+    # Monter le volume pour stocker les fichiers WordPress
     volumes:
       - wordpress:/var/www/html/wordpress
-
-    # Expose le port 9000 pour la communication entre NGINX et WordPress via FastCGI (PHP-FPM).
+    # Exposer le port 9000 pour PHP-FPM
     expose: 
       - "9000:9000"
 
-# Définition des volumes utilisés pour stocker les données persistantes des services.
+# Définition des volumes
 volumes:
   wordpress:
-
-    # Utilisation du driver local pour stocker les données sur la machine hôte.
+    # Utiliser le driver local pour le volume
     driver: local
-
-    # Spécification d'options pour le montage du volume en tant que Bind Mount.
     driver_opts:
-      type: 'none' # Pas de type spécifique pour ce volume.
-      o: 'bind' # Bind mount permet de lier un dossier spécifique de l'hôte au conteneur.
-
-      # Le chemin sur la machine hôte où les fichiers WordPress seront stockés de manière persistante.
+      # Indique à Docker de ne pas créer un volume virtuel.
+      type: 'none'
+      # Demande à Docker de travailler directement dans le dossier de l'hôte spécifié.
+      o: 'bind'
+      # Emplacement sur l'hôte pour stocker les données WordPress
       device: "/home/raveriss/data/wordpress"
   mariadb:
+    # Utiliser le driver local pour le volume
     driver: local
     driver_opts:
-      type: 'none' 
+      # Indique à Docker de ne pas créer un volume virtuel.
+      type: 'none'
+      # Demande à Docker de travailler directement dans le dossier de l'hôte spécifié.
       o: 'bind'
-
-      # Le chemin sur la machine hôte où les données de la base de données MariaDB seront stockées.
+      # Emplacement sur l'hôte pour stocker les données MariaDB
       device: "/home/raveriss/data/mariadb"
 
-# Configuration du réseau Docker, ici "inception". Tous les services mentionnés partagent ce réseau et peuvent communiquer entre eux.
+# Définition du réseau Docker
 networks:
   inception:
+    # Nom du réseau Docker
     name: inception
-    driver: bridge # Bridge permet aux conteneurs de communiquer entre eux, mais isole le réseau du reste de l'hôte.
+    # Utiliser le driver bridge pour permettre la communication entre les conteneurs
+    driver: bridge

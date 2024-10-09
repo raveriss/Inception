@@ -1,45 +1,34 @@
-# Section générale pour la configuration du serveur MySQL.
-# Peut contenir des directives générales ou communes à d'autres sections.
+
+# Section pour les paramètres spécifiques au serveur
 [server]
 
-# Section pour la configuration spécifique du serveur MySQL (mysqld).
+# Section pour les paramètres du serveur MariaDB
 [mysqld]
 
-# Définit l'utilisateur sous lequel MySQL doit s'exécuter.
-# L'exécution sous un utilisateur non-root renforce la sécurité.
+# L'utilisateur sous lequel le serveur MariaDB s'exécutera
 user = mysql
 
-# Définit le port par défaut sur lequel MySQL écoute les connexions.
-# 3306 est le port standard, peut être personnalisé si nécessaire pour des raisons de sécurité.
+# Port par default sur lequel le serveur MariaDB écoute
 port = 3306
 
-# Spécifie le répertoire de base des binaires MySQL.
-# Cela est utile si MySQL est installé dans un répertoire non standard.
+# Le répertoire de base pour l'installation de MariaDB
 basedir = /usr
 
-# Spécifie où MySQL stocke les fichiers de données.
-# Les données doivent être stockées de manière persistante dans un volume Docker pour éviter la perte de données.
-# Bonne pratique : utiliser un volume Docker pour le stockage de `/var/lib/mysql`.
+# Le répertoire où les fichiers de base de données MariaDB sont stockés
 datadir = /var/lib/mysql
 
-# Spécifie le fichier PID utilisé pour gérer le processus MySQL.
-# Ce fichier aide à démarrer et arrêter MySQL correctement.
+# Le fichier où l'ID de processus du serveur MariaDB sera stocké
 pid-file = /var/run/mysqld/mysqld.pid
 
-# Définit le fichier socket pour les connexions locales.
-# Cela améliore les performances des connexions locales par rapport à l'utilisation de connexions réseau.
+# Le fichier socket utilisé pour les connexions locales
 socket = /var/run/mysqld/mysqld.sock
 
-# Active les connexions réseau pour MySQL.
-# Désactiver 'skip_networking' permet d'accepter les connexions réseau externes.
-# Veillez à utiliser des configurations réseau sécurisées pour éviter les accès non autorisés.
+# Active, accepte, ecoute les connexions réseau sur le port 3306.
+# Cela permet aux clients distants de se connecter à la base de données via TCP/IP.
 skip_networking = off
 
-# Définit la taille maximale d'un paquet de requêtes.
-# Augmenter cette limite peut être nécessaire pour les opérations avec des données volumineuses comme les BLOB.
+# La taille maximale d'un paquet ou de toute chaîne générée/intermédiaire
 max_allowed_packet = 64M
 
-# Spécifie l'emplacement du fichier de log des erreurs MySQL.
-# Ce fichier est essentiel pour le suivi des incidents et le dépannage.
-# Assurez-vous que le répertoire est monté dans un volume persistant pour conserver les logs après le redémarrage des conteneurs.
+# Le fichier où le journal des erreurs du serveur MariaDB sera stocké
 log_error = /var/log/mysql/error.log
