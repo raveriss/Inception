@@ -28,10 +28,6 @@ L'objectif principal de ce projet est de mettre en place une infrastructure comp
 Le projet est organisé de la manière suivante :
 
 - **File:** `Makefile`
-- **Directory:** `secrets/`
-  - `credentials.txt`
-  - `db_password.txt`
-  - `db_root_password.txt`
 - **Directory:** `srcs/`
   - `docker-compose.yml`
   - `.env`
